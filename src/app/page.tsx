@@ -76,6 +76,34 @@ export default function TradingBot() {
 
       {/* Contenedor de las cards con animación */}
       <div className="relative z-10 grid grid-cols-1 md:grid-cols-1 gap-6 mt-20">
+
+        {/* Card de Señales con botones de Compra/Venta */}
+        <div
+          className={`bg-[#121826] p-6 rounded-2xl shadow-lg border border-gray-700 transition-all duration-700 delay-200 ${
+            showElements ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          }`}
+        >
+          {loading ? (
+            <p className="text-gray-400">Cargando datos...</p>
+          ) : senales && senales.length > 0 ? (
+            <>
+              <SenalCard senal={senales[senales.length - 1]} />
+
+              {/* Botones de Compra/Venta */}
+              <div className="mt-6 flex justify-center gap-4">
+                <button className="bg-green-600 hover:bg-green-500 text-white font-semibold px-4 py-2 rounded-lg transition-all duration-300 shadow-md w-32">
+                  Activar
+                </button>
+                <button className="bg-red-600 hover:bg-red-500 text-white font-semibold px-4 py-2 rounded-lg transition-all duration-300 shadow-md w-32">
+                  Desactivar
+                </button>
+              </div>
+            </>
+          ) : (
+            <p className="text-gray-500">No hay señales disponibles.</p>
+          )}
+        </div>
+
         {/* Card de Noticias */}
         <div
           className={`bg-[#121826] p-6 rounded-2xl shadow-lg border border-gray-700 transition-all duration-700 ${
@@ -88,21 +116,6 @@ export default function TradingBot() {
             <NoticiasList noticias={noticias} />
           ) : (
             <p className="text-gray-500">No hay noticias disponibles.</p>
-          )}
-        </div>
-
-        {/* Card de Señales con delay adicional */}
-        <div
-          className={`bg-[#121826] p-6 rounded-2xl shadow-lg border border-gray-700 transition-all duration-700 delay-200 ${
-            showElements ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
-        >
-          {loading ? (
-            <p className="text-gray-400">Cargando datos...</p>
-          ) : senales && senales.length > 0 ? (
-            <SenalCard senal={senales[senales.length - 1]} />
-          ) : (
-            <p className="text-gray-500">No hay señales disponibles.</p>
           )}
         </div>
       </div>
